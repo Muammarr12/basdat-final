@@ -1,9 +1,29 @@
+<?php
+include 'config.php';
+
+//function untuk menampilkan data
+function select($query) {
+  global $conn;
+
+  $result = mysqli_query($conn, $query);
+  $rows = [];
+  
+  while ($row = mysqli_fetch_assoc($result)) {
+    $rows[] = $row;    
+  }
+  return $rows;
+}
+
+$data_sirkuit = select('SELECT * FROM sirkuit');
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Sirkuit</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
   <body>
@@ -18,7 +38,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="team.php">Team</a>
+                        <a class="nav-link" href="team.php">Team</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="pembalap.php">Racer</a>
@@ -30,7 +50,7 @@
                         <a class="nav-link" href="jadwal.php">Jadwal</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="sirkuit.php">Sirkuit</a>
+                        <a class="nav-link active" aria-current="page" href="sirkuit.php">Sirkuit</a>
                         </li>
                     </ul>
                 </div>
@@ -39,8 +59,35 @@
     </div>
     <!-- End Navbar -->
 
-    <h1>Hello, world!</h1>
-
+    <h1>Sirkuit</h1>
+    <table class="table table-hover">
+      <!-- Head Table -->
+      <thead class="table-light">
+      <tr>
+        <th scope="col">ID Sirkuit</th>
+        <th scope="col">Nama Sirkuit</th>
+        <th scope="col">Lokasi Sirkuit</th>
+        <th scope="col">Kapasitas</th>
+        <!--<th scope="col">Jarak Sirkuit</th>-->
+        <th scope="col">Edit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <?php foreach ($data_sirkuit as $sirkuit) : ?>
+      <tr>
+        <th><?php echo $sirkuit['id_sirkuit']; ?></th>
+        <td><?php echo $sirkuit['nama_sirkuit']; ?></td>
+        <td><?php echo $jadwal['lokasi_sirkuit']; ?></td>
+        <td><?php echo $sirkuit['kapasitas']; ?></td>
+        <td><?php echo $sirkuit['jarak_sirkuit']; ?></td>
+        <!-- Button -->
+        <td>
+        <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
+        <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+        </td>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

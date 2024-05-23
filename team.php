@@ -1,9 +1,30 @@
+<?php
+include 'config.php';
+
+//function untuk menampilkan data
+function select($query) {
+  global $conn;
+
+  $result = mysqli_query($conn, $query);
+  $rows = [];
+  
+  while ($row = mysqli_fetch_assoc($result)) {
+    $rows[] = $row;    
+  }
+  return $rows;
+}
+
+$data_team = select('SELECT * FROM team');
+
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Team</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
   <body>
@@ -39,7 +60,35 @@
     </div>
     <!-- End Navbar -->
 
-    <h1>Hello, world!</h1>
+    <h1>Team</h1>
+
+    <!-- Table -->
+    <table class="table table-hover">
+    <!-- Head Table -->
+    <thead class="table-light">
+    <tr>
+      <th scope="col">ID Team</th>
+      <th scope="col">Nama Team</th>
+      <th scope="col">Nama Manager</th>
+      <th scope="col">Edit</th>
+    </tr>
+    </thead>
+    <!-- Isi Table -->
+  <tbody>
+    <?php foreach ($data_team as $team) : ?>
+    <tr>
+      <th><?php echo $team['id_team']; ?></th>
+      <td><?php echo $team['nama_team']; ?></td>
+      <td><?php echo $team['nama_manager']; ?></td>
+      
+      <!-- Button -->
+      <td>
+      <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
+      <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+      </td>
+      <?php endforeach; ?>
+  </tbody>
+</table>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>

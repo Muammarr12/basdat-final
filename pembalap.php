@@ -1,3 +1,23 @@
+<?php
+include 'config.php';
+
+//function untuk menampilkan data
+function select($query) {
+  global $conn;
+
+  $result = mysqli_query($conn, $query);
+  $rows = [];
+  
+  while ($row = mysqli_fetch_assoc($result)) {
+    $rows[] = $row;    
+  }
+  return $rows;
+}
+
+$data_pembalap = select('SELECT * FROM pembalap');
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,10 +38,10 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="team.php">Team</a>
+                        <a class="nav-link" href="team.php">Team</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="pembalap.php">Racer</a>
+                        <a class="nav-link active" aria-current="page" href="pembalap.php">Racer</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="sponsor.php">Sponsor</a>
@@ -39,7 +59,35 @@
     </div>
     <!-- End Navbar -->
 
-    <h1>Hello, world!</h1>
+    <h1>Racer</h1>
+
+    <!-- Table -->
+    <table class="table table-hover">
+      <!-- Head Table -->
+      <thead class="table-light">
+      <tr>
+        <th scope="col">ID Racer</th>
+        <th scope="col">Nama Racer</th>
+        <th scope="col">ID Team</th>
+        <th scope="col">Nama Team</th>
+        <th scope="col">Edit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <?php foreach ($data_pembalap as $racer) : ?>
+      <tr>
+        <th><?php echo $racer['id_pembalap']; ?></th>
+        <td><?php echo $racer['nama_pembalap']; ?></td>
+        <td><?php echo $racer['id_team']; ?></td>
+        <td><?php echo $racer['nama_team']; ?></td>
+        <!-- Button -->
+        <td>
+        <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
+        <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+        </td>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>

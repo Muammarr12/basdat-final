@@ -1,3 +1,23 @@
+<?php
+include 'config.php';
+
+//function untuk menampilkan data
+function select($query) {
+  global $conn;
+
+  $result = mysqli_query($conn, $query);
+  $rows = [];
+  
+  while ($row = mysqli_fetch_assoc($result)) {
+    $rows[] = $row;    
+  }
+  return $rows;
+}
+
+$data_sponsor = select('SELECT * FROM sponsor');
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,13 +38,13 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="team.php">Team</a>
+                        <a class="nav-link" href="team.php">Team</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="pembalap.php">Racer</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="sponsor.php">Sponsor</a>
+                        <a class="nav-link active" aria-current="page" href="sponsor.php">Sponsor</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="jadwal.php">Jadwal</a>
@@ -39,8 +59,36 @@
     </div>
     <!-- End Navbar -->
 
-    <h1>Hello, world!</h1>
-
+    <h1>Sponsors</h1>
+<!-- Table -->
+<table class="table table-hover">
+      <!-- Head Table -->
+      <thead class="table-light">
+      <tr>
+        <th scope="col">ID Sponsor</th>
+        <th scope="col">Nama Sponsor</th>
+        <th scope="col">Durasi Kontrak</th>
+        <th scope="col">Biaya Kontrak</th>
+        <th scope="col">Jumlah Kontrak</th>
+        <th scope="col">Edit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <?php foreach ($data_sponsor as $sponsor) : ?>
+      <tr>
+        <th><?php echo $sponsor['id_sponsor']; ?></th>
+        <td><?php echo $sponsor['nama_sponsor']; ?></td>
+        <td><?php echo $sponsor['durasi_kontrak']; ?></td>
+        <td><?php echo $sponsor['biaya_kontrak']; ?></td>
+        <td><?php echo $sponsor['jumlah_kontrak']; ?></td>
+        <!-- Button -->
+        <td>
+        <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
+        <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+        </td>
+        <?php endforeach; ?>
+      </tbody>
+</table>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

@@ -1,3 +1,23 @@
+<?php
+include 'config.php';
+
+//function untuk menampilkan data
+function select($query) {
+  global $conn;
+
+  $result = mysqli_query($conn, $query);
+  $rows = [];
+  
+  while ($row = mysqli_fetch_assoc($result)) {
+    $rows[] = $row;    
+  }
+  return $rows;
+}
+
+$data_jadwal = select('SELECT * FROM jadwal');
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,7 +38,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="team.php">Team</a>
+                        <a class="nav-link" href="team.php">Team</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="pembalap.php">Racer</a>
@@ -27,7 +47,7 @@
                         <a class="nav-link" href="sponsor.php">Sponsor</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="jadwal.php">Jadwal</a>
+                        <a class="nav-link active" aria-current="page" href="jadwal.php">Jadwal</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="sirkuit.php">Sirkuit</a>
@@ -39,8 +59,34 @@
     </div>
     <!-- End Navbar -->
 
-    <h1>Hello, world!</h1>
-
+    <h1>Jadwal</h1>
+<!-- Table -->
+<table class="table table-hover">
+      <!-- Head Table -->
+      <thead class="table-light">
+      <tr>
+        <th scope="col">ID Sirkuit</th>
+        <th scope="col">Nama Sirkuit</th>
+        <th scope="col">Lokasi Sirkuit</th>
+        <th scope="col">Tanggal Balapan</th>
+        <th scope="col">Edit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <?php foreach ($data_jadwal as $jadwal) : ?>
+      <tr>
+        <th><?php echo $jadwal['id_sirkuit']; ?></th>
+        <td><?php echo $jadwal['nama_sirkuit']; ?></td>
+        <td><?php echo $jadwal['lokasi_sirkuit']; ?></td>
+        <td><?php echo $jadwal['tanggal_balapan']; ?></td>
+        <!-- Button -->
+        <td>
+        <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
+        <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+        </td>
+        <?php endforeach; ?>
+      </tbody>
+</table>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
