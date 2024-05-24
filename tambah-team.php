@@ -4,6 +4,21 @@ include 'config/app.php';
 //menampilkan data
 $data_team = select('SELECT * FROM team');
 
+//cek apakah tombol ditekan
+if (isset($_POST['tambah'])) {
+  if (tambah_team($_POST) > 0 ) {
+    echo "<script>
+    alert('Data berhasil ditambahkan');
+    document.location.href = 'team.php';
+    </script>";
+  }else {
+    echo "<script>
+    alert('Data gagal ditambahkan');
+    document.location.href = 'team.php';
+    </script>";
+  }
+}
+
 ?>
 
 
@@ -49,38 +64,26 @@ $data_team = select('SELECT * FROM team');
     <br>
     <!-- End Navbar -->
 <div class="container">
-    <h1 class="text-center">Team</h1>
-    <br>
-
-    <!-- Table -->
-    <table class="table table-hover">
-    <!-- Head Table -->
-    <thead class="table-light">
-    <tr>
-      <th scope="col">ID Team</th>
-      <th scope="col">Nama Team</th>
-      <th scope="col">Nama Manager</th>
-      <th scope="col">Edit</th>
-    </tr>
-    </thead>
-    <!-- Isi Table -->
-  <tbody>
-    <?php foreach ($data_team as $team) : ?>
-    <tr>
-      <th><?php echo $team['id_team']; ?></th>
-      <td><?php echo $team['nama_team']; ?></td>
-      <td><?php echo $team['nama_manager']; ?></td>
-      
-      <!-- Button -->
-      <td>
-      <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
-      <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
-      </td>
-      <?php endforeach; ?>
-  </tbody>
-</table>
-<a href="tambah-team.php" class="btn btn-primary">Tambah Team</a>
+<h1 class="text-center">Tambah Tim Baru</h1><br>
+<form action="" method="post">
+        <div class="row">
+            <div class="col">
+                <label for="id_team" class="form-label">ID Team:</label>
+                <input type="number" class="form-control" id="id_team" name="id_team" placeholder="" aria-label="ID Team">
+            </div>
+            <div class="col">
+                <label for="nama_team" class="form-label">Nama Team:</label>
+                <input type="text" class="form-control" id="nama_team" name="nama_team" placeholder="" aria-label="Nama Team">
+            </div>
+            <div class="col">
+                <label for="nama_manager" class="form-label">Nama Manager:</label>
+                <input type="text" class="form-control" id="nama_manager" name="nama_manager" placeholder="" aria-label="Nama Manager">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <button type="submit" name="tambah" class="btn btn-primary">Tambah Tim</button>
+            </div>
+        </div>
+    </form>
 </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-</html>
