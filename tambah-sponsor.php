@@ -3,15 +3,15 @@ include 'config/app.php';
 
 //cek apakah tombol ditekan
 if (isset($_POST['tambah'])) {
-    if (tambah_pembalap($_POST) > 0 ) {
+    if (tambah_sponsor($_POST) > 0 ) {
       echo "<script>
       alert('Data berhasil ditambahkan');
-      document.location.href = 'pembalap.php';
+      document.location.href = 'sponsor.php';
       </script>";
     }else {
       echo "<script>
       alert('Data gagal ditambahkan');
-      document.location.href = 'pembalap.php';
+      document.location.href = 'sponsor.php';
       </script>";
     }
   }
@@ -22,7 +22,7 @@ if (isset($_POST['tambah'])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Daftarkan Racer</title>
+    <title>Daftarkan Sponsor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
   <body>
@@ -40,10 +40,10 @@ if (isset($_POST['tambah'])) {
                         <a class="nav-link" href="team.php">Team</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="pembalap.php">Racer</a>
+                        <a class="nav-link" href="pembalap.php">Racer</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="sponsor.php">Sponsor</a>
+                        <a class="nav-link active" aria-current="page" href="sponsor.php">Sponsor</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="jadwal.php">Jadwal</a>
@@ -58,58 +58,52 @@ if (isset($_POST['tambah'])) {
     </div>
     <br>
     <!-- End Navbar -->
-    
+
 <div class="container">
-<h1 class="text-center">Daftarkan Racer</h1><br>
+<h1 class="text-center">Daftarkan Sponsor</h1><br>
 <form action="" method="post">
     <div class="row mb-3">
         <div class="col-sm-2">
-            <label for="id_pembalap" class="form-label">ID Racer:</label>
+            <label for="id_sponsor" class="form-label">ID Sponsor:</label>
         </div>
         <div class="col">
-            <input type="number" class="form-control" id="id_pembalap" name="id_pembalap" placeholder="" aria-label="ID Racer">
+            <input type="number" class="form-control" id="id_sponsor" name="id_sponsor" placeholder="" aria-label="ID sponsor">
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-sm-2">
-            <label for="nama_pembalap" class="form-label">Nama Racer:</label>
+            <label for="nama_sponsor" class="form-label">Nama Sponsor:</label>
         </div>
         <div class="col">
-            <input type="text" class="form-control" id="nama_pembalap" name="nama_pembalap" placeholder="" aria-label="Nama Racer">
+            <input type="text" class="form-control" id="nama_sponsor" name="nama_sponsor" placeholder="" aria-label="Nama sponsor">
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-sm-2">
-            <label for="id_team" class="form-label">ID Team:</label>
-        </div>
-    <div class="col">
-        <select class="form-select" id="id_team" name="id_team" aria-label="ID Team">
-                <?php
-                // Ambil data team dari database
-                $teams = select("SELECT id_team, nama_team FROM team");
-
-                // Tampilkan sebagai opsi pilihan
-                foreach ($teams as $team) {
-                    echo "<option value=\"" . $team['id_team'] . "\">" . $team['id_team'] . " - " . $team['nama_team'] . "</option>";
-                }
-                ?>
-            </select>
-        </div>
-    <div class="row mt-3">
-        <div class="col-sm-2">
-            <label for="nama_team" class="form-label">Nama Team:</label>
+            <label for="durasi_kontrak" class="form-label">Durasi Kontrak:</label>
         </div>
         <div class="col">
-            <input type="text" class="form-control" id="nama_team" name="nama_team" placeholder="" aria-label="Nama Team">
+            <input type="number" class="form-control" id="durasi_kontrak" name="durasi_kontrak" placeholder="" aria-label="Durasi Kontrak" min="0" max="99">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-2">
+            <label for="biaya_kontrak" class="form-label">Biaya Kontrak:</label>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" id="biaya_kontrak" name="biaya_kontrak" placeholder="" aria-label="Biaya Kontrak" min="0">
+            </div>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col text-end">
-            <button type="submit" name="tambah" class="btn btn-primary">Tambah Tim</button>
+            <button type="submit" name="tambah" class="btn btn-primary">Tambah Sponsor</button>
         </div>
     </div>
 </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>

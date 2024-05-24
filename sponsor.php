@@ -23,7 +23,7 @@ $data_sponsor = select('SELECT * FROM sponsor');
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Sponsor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
   <body>
@@ -58,8 +58,8 @@ $data_sponsor = select('SELECT * FROM sponsor');
         </nav>
     </div>
     <!-- End Navbar -->
-
-    <h1>Sponsors</h1>
+<div class="container">
+    <h1>Sponsor</h1>
 <!-- Table -->
 <table class="table table-hover">
       <!-- Head Table -->
@@ -74,21 +74,24 @@ $data_sponsor = select('SELECT * FROM sponsor');
       </tr>
       </thead>
       <tbody>
-      <?php foreach ($data_sponsor as $sponsor) : ?>
-      <tr>
-        <th><?php echo $sponsor['id_sponsor']; ?></th>
-        <td><?php echo $sponsor['nama_sponsor']; ?></td>
-        <td><?php echo $sponsor['durasi_kontrak']; ?></td>
-        <td><?php echo $sponsor['biaya_kontrak']; ?></td>
-        <td><?php echo $sponsor['jumlah_kontrak']; ?></td>
-        <!-- Button -->
-        <td>
-        <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
-        <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
-        </td>
-        <?php endforeach; ?>
-      </tbody>
+    <?php foreach ($data_sponsor as $sponsor) : ?>
+        <tr>
+            <th><?php echo $sponsor['id_sponsor']; ?></th>
+            <td><?php echo $sponsor['nama_sponsor']; ?></td>
+            <td><?php echo $sponsor['durasi_kontrak']; ?></td>
+            <td><?php echo $sponsor['biaya_kontrak']; ?></td>
+            <td><?php echo $sponsor['durasi_kontrak'] * $sponsor['biaya_kontrak']; ?></td>
+            <!-- Button -->
+            <td>
+                <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
+                <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
 </table>
+<a href="tambah-sponsor.php" class="btn btn-primary">Tambah Sponsor</a>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

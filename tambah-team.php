@@ -64,7 +64,7 @@ if (isset($_POST['tambah'])) {
     <br>
     <!-- End Navbar -->
 <div class="container">
-<h1 class="text-center">Tambah Tim Baru</h1><br>
+<h1 class="text-center">Daftarkan Tim</h1><br>
 <form action="" method="post">
     <div class="row mb-3">
         <div class="col-sm-2">
@@ -97,3 +97,6 @@ if (isset($_POST['tambah'])) {
     </div>
 </form>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

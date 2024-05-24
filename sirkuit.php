@@ -57,9 +57,10 @@ $data_sirkuit = select('SELECT * FROM sirkuit');
             </div>
         </nav>
     </div>
+    <br>
     <!-- End Navbar -->
-
-    <h1>Sirkuit</h1>
+<div class="container">
+    <h1 class="text-center">Sirkuit</h1><br>
     <table class="table table-hover">
       <!-- Head Table -->
       <thead class="table-light">
@@ -68,7 +69,7 @@ $data_sirkuit = select('SELECT * FROM sirkuit');
         <th scope="col">Nama Sirkuit</th>
         <th scope="col">Lokasi Sirkuit</th>
         <th scope="col">Kapasitas</th>
-        <!--<th scope="col">Jarak Sirkuit</th>-->
+        <th scope="col">Jarak Sirkuit</th>
         <th scope="col">Edit</th>
       </tr>
       </thead>
@@ -77,7 +78,7 @@ $data_sirkuit = select('SELECT * FROM sirkuit');
       <tr>
         <th><?php echo $sirkuit['id_sirkuit']; ?></th>
         <td><?php echo $sirkuit['nama_sirkuit']; ?></td>
-        <td><?php echo $jadwal['lokasi_sirkuit']; ?></td>
+        <td><?php echo $sirkuit['lokasi_sirkuit']; ?></td>
         <td><?php echo $sirkuit['kapasitas']; ?></td>
         <td><?php echo $sirkuit['jarak_sirkuit']; ?></td>
         <!-- Button -->
@@ -88,6 +89,8 @@ $data_sirkuit = select('SELECT * FROM sirkuit');
         <?php endforeach; ?>
       </tbody>
     </table>
+    <a href="tambah-sirkuit.php" class="btn btn-primary">Daftarkan Sirkuit</a>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
