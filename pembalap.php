@@ -16,6 +16,31 @@ function select($query) {
 
 $data_pembalap = select('SELECT * FROM pembalap');
 
+//////////
+function deleteRacer($id_pembalap) {
+  global $conn;
+  // Buat query untuk menghapus pembalap
+  $sql = "DELETE FROM pembalap WHERE id_pembalap = $id_pembalap";
+
+  if ($conn->query($sql) === TRUE) {
+    echo "<script>
+    alert('Data pembalap berhasil dihapus');
+    document.location.href = 'pembalap.php';
+    </script>";
+} else {
+    echo "<script>
+    alert('Error: " . $sql . "<br>" . $conn->error . "');
+    document.location.href = 'pembalap.php';
+    </script>";
+}
+}
+
+// Panggil fungsi deleteRacer saat tombol hapus diklik
+if (isset($_POST['delete_racer'])) {
+  $id_pembalap_to_delete = $_POST['delete_racer'];
+  deleteRacer($id_pembalap_to_delete);
+}
+
 ?>
 
 <!doctype html>
@@ -84,7 +109,11 @@ $data_pembalap = select('SELECT * FROM pembalap');
         <!-- Button -->
         <td>
         <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
-        <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+        <!-- Form untuk mengirimkan ID pembalap yang akan dihapus -->
+        <form method="post">
+                <input type="hidden" name="delete_racer" value="<?php echo $racer['id_pembalap']; ?>">
+                <button type="submit" class="btn btn-danger btn-sm my-1">Delete</button>
+            </form>
         </td>
         <?php endforeach; ?>
       </tbody>

@@ -16,6 +16,30 @@ function select($query) {
 
 $data_jadwal = select('SELECT * FROM jadwal');
 
+function deleteJadwal($id_sirkuit) {
+  global $conn;
+  // Buat query untuk menghapus jadwal
+  $sql = "DELETE FROM jadwal WHERE id_sirkuit = $id_sirkuit";
+
+  if ($conn->query($sql) === TRUE) {
+      echo "<script>
+      alert('Data jadwal berhasil dihapus');
+      document.location.href = 'jadwal.php';
+      </script>";
+  } else {
+      echo "<script>
+      alert('Error: " . $sql . "<br>" . $conn->error . "');
+      document.location.href = 'jadwal.php';
+      </script>";
+  }
+}
+
+// Panggil fungsi deleteJadwal saat tombol hapus diklik
+if (isset($_POST['delete_jadwal'])) {
+  $id_sirkuit_to_delete = $_POST['delete_jadwal'];
+  deleteJadwal($id_sirkuit_to_delete);
+}
+
 ?>
 
 <!doctype html>
@@ -84,7 +108,11 @@ $data_jadwal = select('SELECT * FROM jadwal');
         <!-- Button -->
         <td>
         <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
-        <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+         <!-- Form untuk mengirimkan ID sirkuit yang akan dihapus -->
+         <form method="post">
+             <input type="hidden" name="delete_jadwal" value="<?php echo $jadwal['id_sirkuit']; ?>">
+             <button type="submit" class="btn btn-danger btn-sm my-1">Delete</button>
+          </form>
         </td>
         <?php endforeach; ?>
       </tbody>

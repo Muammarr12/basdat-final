@@ -16,6 +16,31 @@ function select($query) {
 
 $data_sirkuit = select('SELECT * FROM sirkuit');
 
+// Menghapus data
+function deleteSirkuit($id_sirkuit) {
+  global $conn;
+  // Buat query untuk menghapus sirkuit
+  $sql = "DELETE FROM sirkuit WHERE id_sirkuit = $id_sirkuit";
+
+  if ($conn->query($sql) === TRUE) {
+    echo "<script>
+    alert('Data sponsor berhasil dihapus');
+    document.location.href = 'sirkuit.php';
+    </script>";
+  } else {
+      echo "<script>
+      alert('Error: " . $sql . "<br>" . $conn->error . "');
+      document.location.href = 'sirkuit.php';
+      </script>";
+  }
+}
+
+// Panggil fungsi deleteSirkuit saat tombol hapus diklik
+if (isset($_POST['delete_sirkuit'])) {
+  $id_sirkuit_to_delete = $_POST['delete_sirkuit'];
+  deleteSirkuit($id_sirkuit_to_delete);
+}
+
 ?>
 
 <!doctype html>
@@ -84,7 +109,11 @@ $data_sirkuit = select('SELECT * FROM sirkuit');
         <!-- Button -->
         <td>
         <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
-        <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+         <!-- Form untuk mengirimkan ID sirkuit yang akan dihapus -->
+         <form method="post">
+              <input type="hidden" name="delete_sirkuit" value="<?php echo $sirkuit['id_sirkuit']; ?>">
+              <button type="submit" class="btn btn-danger btn-sm my-1">Delete</button>
+          </form>
         </td>
         <?php endforeach; ?>
       </tbody>

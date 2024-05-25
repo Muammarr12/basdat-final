@@ -16,6 +16,30 @@ function select($query) {
 
 $data_sponsor = select('SELECT * FROM sponsor');
 
+function deleteSponsor($id_sponsor) {
+  global $conn;
+  // Buat query untuk menghapus sponsor
+  $sql = "DELETE FROM sponsor WHERE id_sponsor = $id_sponsor";
+
+  if ($conn->query($sql) === TRUE) {
+      echo "<script>
+      alert('Data sponsor berhasil dihapus');
+      document.location.href = 'sponsor.php';
+      </script>";
+  } else {
+      echo "<script>
+      alert('Error: " . $sql . "<br>" . $conn->error . "');
+      document.location.href = 'sponsor.php';
+      </script>";
+  }
+}
+
+// Panggil fungsi deleteSponsor saat tombol hapus diklik
+if (isset($_POST['delete_sponsor'])) {
+  $id_sponsor_to_delete = $_POST['delete_sponsor'];
+  deleteSponsor($id_sponsor_to_delete);
+}
+
 ?>
 
 <!doctype html>
@@ -84,7 +108,11 @@ $data_sponsor = select('SELECT * FROM sponsor');
             <!-- Button -->
             <td>
                 <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
-                <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+                <!-- Form untuk mengirimkan ID sponsor yang akan dihapus -->
+                <form method="post">
+                    <input type="hidden" name="delete_sponsor" value="<?php echo $sponsor['id_sponsor']; ?>">
+                    <button type="submit" class="btn btn-danger btn-sm my-1">Delete</button>
+                </form>
             </td>
         </tr>
     <?php endforeach; ?>

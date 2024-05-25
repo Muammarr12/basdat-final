@@ -4,6 +4,31 @@ include 'config/app.php';
 //menampilkan data
 $data_team = select('SELECT * FROM team');
 
+//Menghapus data
+function deleteTeam($id_team) {
+  global $conn;
+  // Buat query untuk menghapus tim
+  $sql = "DELETE FROM team WHERE id_team = $id_team";
+
+  if ($conn->query($sql) === TRUE) {
+      echo "<script>
+      alert('Data tim berhasil dihapus');
+      document.location.href = 'team.php';
+      </script>";
+  } else {
+      echo "<script>
+      alert('Error: " . $sql . "<br>" . $conn->error . "');
+      document.location.href = 'team.php';
+      </script>";
+  }
+}
+
+// Panggil fungsi deleteTeam saat tombol hapus diklik
+if (isset($_POST['delete_team'])) {
+  $id_team_to_delete = $_POST['delete_team'];
+  deleteTeam($id_team_to_delete);
+}
+
 ?>
 
 
@@ -74,7 +99,11 @@ $data_team = select('SELECT * FROM team');
       <!-- Button -->
       <td>
       <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
-      <a href=""><button type="button" class="btn btn-danger btn-sm my-1">Delete</button></a>
+      <!-- Form untuk mengirimkan ID tim yang akan dihapus -->
+      <form method="post">
+              <input type="hidden" name="delete_team" value="<?php echo $team['id_team']; ?>">
+              <button type="submit" class="btn btn-danger btn-sm my-1">Delete</button>
+          </form>
       </td>
       <?php endforeach; ?>
   </tbody>
