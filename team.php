@@ -98,7 +98,8 @@ if (isset($_POST['delete_team'])) {
       
       <!-- Button -->
       <td>
-      <a href=""><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
+      <!-- Tombol untuk mengarahkan ke halaman update_team.php -->
+      <a href="update/update-team.php?id=<?php echo $team['id_team']; ?>"><button type="button" class="btn btn-success btn-sm my-1">Update</button></a>
       <!-- Form untuk mengirimkan ID tim yang akan dihapus -->
       <form method="post">
               <input type="hidden" name="delete_team" value="<?php echo $team['id_team']; ?>">
